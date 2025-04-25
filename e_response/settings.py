@@ -15,20 +15,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',  # 🔥 Removed token auth
     'corsheaders',
     'djoser',
-    'accounts',  # your custom user app
+    'accounts',
 ]
 
-AUTH_USER_MODEL = 'accounts.CustomUser'  # custom user model (create below 👇)
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # ✅ Changed to session auth
+        'rest_framework.authentication.BasicAuthentication',    # ✅ Optional, helpful for testing
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',  # ✅ Or IsAuthenticated depending on your use
     ],
 }
 
@@ -44,17 +45,16 @@ DJOSER = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # ✅ Move to top for CORS to work right
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'e_response.urls'
-
 
 TEMPLATES = [
     {
@@ -87,10 +87,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'users.authentication.EmailBackend',  # Use custom backend for email authentication
-    'django.contrib.auth.backends.ModelBackend',  # Default backend (username)
-)
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 
@@ -101,5 +100,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'accounts.CustomUser'
+CORS_ALLOW_CREDENTIALS = True  # Ensure cookies are allowed if using session-based auth
