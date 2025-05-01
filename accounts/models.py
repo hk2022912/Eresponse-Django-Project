@@ -21,6 +21,8 @@ class CustomUser(AbstractUser):
         related_name='customuser_permissions_set',  # Unique related_name for CustomUser model
         blank=True
     )
+    age = models.PositiveIntegerField(null=True, blank=True)
+    contact_number = models.CharField(max_length=15, null=True, blank=True)
 
     def __str__(self):
         return self.email
