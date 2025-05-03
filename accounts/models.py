@@ -7,6 +7,7 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']  # 'username' is required by default
+    is_verified = models.BooleanField(default=False)
 
     # Again, we can skip redefining groups and user_permissions unless necessary,
     # but ensure you specify a unique related_name to avoid reverse accessor conflict.

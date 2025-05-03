@@ -132,3 +132,19 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = ['http://192.168.1.113']
 
 # 🔥 (No need for CSRF_EXEMPT_URLS anymore because middleware handles it)
+
+
+# ✅ Email Configuration for Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'kristineigdao1903@gmail.com'  # replace with your Gmail
+EMAIL_HOST_PASSWORD = 'tzly grqp vuic yyou'  # use the 16-char app password
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# settings.py
+
+SITE_DOMAIN = "http://192.168.1.113:8000"  # or your domain name
+
