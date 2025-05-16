@@ -143,7 +143,7 @@ EMAIL_HOST_USER = 'kristineigdao1903@gmail.com'  # replace with your Gmail
 EMAIL_HOST_PASSWORD = 'tzly grqp vuic yyou'  # use the 16-char app password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
+DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 # settings.py
 
 SITE_DOMAIN = "http://192.168.1.113:8000"  # or your domain name
