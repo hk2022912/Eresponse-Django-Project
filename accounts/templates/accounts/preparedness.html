@@ -1,0 +1,853 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preparedness</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #c0392b;
+      color: white;
+      line-height: 1.6;
+    }
+    
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Header */
+    header {
+      background-color: #fbeeee;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .site-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #c9302c;
+    }
+    
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+    
+    .nav-links a:hover {
+      color: #c9302c;
+      background-color: rgba(201, 48, 44, 0.1);
+    }
+    
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-btn {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .dropdown-btn:hover {
+      color: #c9302c;
+      background-color: rgba(201, 48, 44, 0.1);
+    }
+    
+    .dropdown-btn::after {
+      content: '▼';
+      font-size: 10px;
+      margin-left: 5px;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 4px;
+      z-index: 10;
+      top: 100%;
+      left: 0;
+    }
+    
+    .dropdown-content a {
+      color: #444;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.3s ease;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+      color: #c9302c;
+    }
+    
+    .dropdown-content .logout-btn {
+      color: #c9302c;
+      font-weight: 500;
+      border-top: 1px solid #eee;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 24px;
+    }
+    
+    /* Alert Banner */
+    .alert-banner {
+      background-color: #f39c12;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+    
+    /* Main Content */
+    main {
+      padding: 40px 0;
+      text-align: center;
+    }
+    
+    main h2 {
+      margin-bottom: 40px;
+      font-size: 36px;
+      color: white;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    main h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: #ffffff;
+      border-radius: 2px;
+    }
+    
+    /* Cards */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .card {
+      background-color: white;
+      color: #222;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid transparent;
+    }
+    
+    .card img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+    
+    .card p {
+      font-weight: 600;
+      font-size: 18px;
+      color: #333;
+      margin-top: 10px;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card.selected {
+      border-color: #3498db;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background-color: white;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 12px;
+      padding: 30px;
+      color: #333;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-header h3 {
+      color: #c0392b;
+      font-size: 24px;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #777;
+    }
+
+    .modal-content h4 {
+      margin: 20px 0 10px;
+      color: #c0392b;
+    }
+
+    .modal-content ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .modal-content li {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .emergency-contacts {
+      background-color: #f8f8f8;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      header .container {
+        padding: 15px 20px;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      nav {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #fbeeee;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links {
+        position: static;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding: 0;
+        gap: 0;
+        align-items: flex-start;
+      }
+      
+      .nav-links.active {
+        max-height: 500px;
+      }
+      
+      .nav-links li {
+        width: 100%;
+      }
+      
+      .nav-links a, .dropdown-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 20px;
+        margin: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      
+      .dropdown {
+        width: 100%;
+      }
+      
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 20px;
+      }
+      
+      .dropdown-content.show {
+        max-height: 300px;
+      }
+      
+      .dropdown-content a {
+        padding: 10px 20px;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="alert-banner" id="alertBanner">
+    Important: Please review safety instructions for your area's high-risk disasters.
+  </div>
+
+  <header>
+    <div class="container header-container">
+      <div class="logo-title">
+        <img src="dp.png" alt="E-Response Logo" class="logo" />
+        <h1 class="site-title">E-Response</h1>
+      </div>
+      <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+      <nav>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="homepage.html">Home</a></li>
+          <li class="dropdown">
+            <button class="dropdown-btn" id="menu-dropdown-btn">Menu</button>
+            <div class="dropdown-content" id="menu-dropdown">
+              <a href="preparedness.html">Preparedness</a>
+              <a href="emergency_contacts.html">Emergency Contacts</a>
+              <a href="guides.html">Guides and Tutorials</a>
+              <a href="#" class="logout-btn">Log Out</a>
+            </div>
+          </li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2>Safety Instructions</h2>
+      <section class="cards-container">
+        <div class="card" data-disaster="earthquake">
+          <img src="images/earthquake.png" alt="Earthquake Safety" />
+          <p>Earthquake Safety Instructions</p>
+        </div>
+        <div class="card" data-disaster="tsunami">
+          <img src="images/tsunami.png" alt="Tsunami Safety" />
+          <p>Tsunami Safety Instructions</p>
+        </div>
+        <div class="card" data-disaster="landslide">
+          <img src="images/landslide.png" alt="Landslides Safety" />
+          <p>Landslides Safety Instructions</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Earthquake Modal -->
+  <div class="modal-overlay" id="earthquakeModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Earthquake Safety Instructions</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-content">
+        <h4>Before an Earthquake</h4>
+        <ul>
+          <li>Secure heavy furniture to walls and floors</li>
+          <li>Know where and how to shut off utilities</li>
+          <li>Create an emergency kit with water, food, medication, and first aid supplies</li>
+          <li>Develop a family communication plan</li>
+          <li>Identify safe spots in each room (under sturdy furniture, against interior walls)</li>
+        </ul>
+
+        <h4>During an Earthquake</h4>
+        <ul>
+          <li><strong>Drop, Cover, and Hold On</strong> - Drop to your hands and knees, take cover under sturdy furniture, and hold on</li>
+          <li>If there's no shelter nearby, drop to the ground in an inside corner of the building</li>
+          <li>Stay away from glass, windows, outside doors and walls</li>
+          <li>If outdoors, stay in the open until the shaking stops</li>
+          <li>If in a vehicle, pull over and stop. Do not stop under buildings, trees, or overpasses</li>
+        </ul>
+
+        <h4>After an Earthquake</h4>
+        <ul>
+          <li>Check yourself and others for injuries</li>
+          <li>Be prepared for aftershocks</li>
+          <li>Listen to local alerts and authorities for information and instructions</li>
+          <li>Check for gas leaks, water and electrical line damage</li>
+          <li>Avoid damaged areas and fallen debris</li>
+        </ul>
+
+        <div class="emergency-contacts">
+          <h4>Emergency Contacts</h4>
+          <p>Emergency Services: 911</p>
+          <p>Local Emergency Management: [Local Number]</p>
+          <p>Disaster Relief: [Relief Number]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tsunami Modal -->
+  <div class="modal-overlay" id="tsunamiModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Tsunami Safety Instructions</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-content">
+        <h4>Before a Tsunami</h4>
+        <ul>
+          <li>Know if your home, school, workplace or other frequently visited locations are in tsunami hazard areas</li>
+          <li>Plan evacuation routes from your home, school, workplace or any other place you visit frequently</li>
+          <li>Create an emergency kit with essential supplies</li>
+          <li>Familiarize yourself with local warning systems</li>
+        </ul>
+
+        <h4>During a Tsunami Warning</h4>
+        <ul>
+          <li><strong>Move immediately to higher ground</strong> - If you feel an earthquake when near the coast, move to higher ground immediately</li>
+          <li>Follow evacuation orders from local authorities</li>
+          <li>If evacuation is not possible, go to the upper floor of a sturdy building</li>
+          <li>Stay away from the beach and coastal areas</li>
+          <li>A tsunami may be a series of waves - do not return until officials say it is safe</li>
+        </ul>
+
+        <h4>After a Tsunami</h4>
+        <ul>
+          <li>Stay away from flooded and damaged areas until officials say it is safe</li>
+          <li>Stay away from debris in the water as it may pose a safety hazard</li>
+          <li>Check yourself for injuries and get first aid as needed</li>
+          <li>Listen to local alerts and authorities for information and instructions</li>
+        </ul>
+
+        <div class="emergency-contacts">
+          <h4>Emergency Contacts</h4>
+          <p>Emergency Services: 911</p>
+          <p>Tsunami Warning Center: [Warning Center Number]</p>
+          <p>Coast Guard: [Coast Guard Number]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Landslide Modal -->
+  <div class="modal-overlay" id="landslideModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Landslide Safety Instructions</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-content">
+        <h4>Before a Landslide</h4>
+        <ul>
+          <li>Be aware of landslide risk in your area</li>
+          <li>Watch for changes in landscape such as patterns of storm-water drainage or new cracks in soil</li>
+          <li>Create emergency plans and ensure everyone knows evacuation routes</li>
+          <li>Plant ground cover on slopes and build retaining walls if necessary</li>
+        </ul>
+
+        <h4>During Heavy Rains or Warnings</h4>
+        <ul>
+          <li>Listen for unusual sounds that might indicate moving debris (trees cracking, boulders knocking together)</li>
+          <li>If you suspect imminent landslide danger, evacuate immediately</li>
+          <li>Stay alert and awake if there are warnings about landslides in your area</li>
+          <li>If you are near a stream or channel, be alert for sudden increases or decreases in water flow</li>
+        </ul>
+
+        <h4>During a Landslide</h4>
+        <ul>
+          <li>Move away from the path of a landslide as quickly as possible</li>
+          <li>Curl into a tight ball and protect your head if escape is not possible</li>
+          <li>If driving, watch for collapsed pavement, mud, fallen rocks and other indications of possible debris flow</li>
+        </ul>
+
+        <h4>After a Landslide</h4>
+        <ul>
+          <li>Stay away from the slide area</li>
+          <li>Check for injured or trapped persons near the slide, without entering the direct slide area</li>
+          <li>Listen to local alerts for emergency information</li>
+          <li>Watch for flooding, which may occur after a landslide</li>
+        </ul>
+
+        <div class="emergency-contacts">
+          <h4>Emergency Contacts</h4>
+          <p>Emergency Services: 911</p>
+          <p>Geological Survey: [Survey Number]</p>
+          <p>Local Emergency Management: [Local Number]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show alert banner on page load
+      const alertBanner = document.getElementById('alertBanner');
+      alertBanner.style.display = 'block';
+      
+      // Hide banner after 5 seconds
+      setTimeout(() => {
+        alertBanner.style.display = 'none';
+      }, 5000);
+      
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      
+      menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+      });
+      
+      // Mobile dropdown toggle
+      const dropdownBtn = document.getElementById('menu-dropdown-btn');
+      const menuDropdown = document.getElementById('menu-dropdown');
+      
+      if (window.innerWidth <= 768) {
+        dropdownBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          menuDropdown.classList.toggle('show');
+        });
+      } else {
+        // For desktop, show dropdown on hover
+        document.querySelector('.dropdown').addEventListener('mouseenter', function() {
+          menuDropdown.style.display = 'block';
+        });
+        
+        document.querySelector('.dropdown').addEventListener('mouseleave', function() {
+          menuDropdown.style.display = 'none';
+        });
+      }
+      
+      // Set up card click events
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('click', function() {
+          // Remove selected class from all cards
+          cards.forEach(c => c.classList.remove('selected'));
+          
+          // Add selected class to clicked card
+          this.classList.add('selected');
+          
+          // Open corresponding modal
+          const disasterType = this.getAttribute('data-disaster');
+          const modal = document.getElementById(`${disasterType}Modal`);
+          if (modal) {
+            modal.classList.add('active');
+          }
+        });
+      });
+      
+      // Set up close modal buttons
+      const closeButtons = document.querySelectorAll('.close-modal');
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const modal = this.closest('.modal-overlay');
+          modal.classList.remove('active');
+        });
+      });
+      
+      // Close modal when clicking outside
+      const modals = document.querySelectorAll('.modal-overlay');
+      modals.forEach(modal => {
+        modal.addEventListener('click', function(event) {
+          if (event.target === this) {
+            this.classList.remove('active');
+          }
+        });
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          const activeModal = document.querySelector('.modal-overlay.active');
+          if (activeModal) {
+            activeModal.classList.remove('active');
+          }
+        }
+      });
+
+      // Auto-check if user has viewed safety instructions
+      let safetyInstructionsViewed = localStorage.getItem('safetyInstructionsViewed');
+      
+      if (!safetyInstructionsViewed) {
+        // Show earthquake modal automatically after 2 seconds on first visit
+        setTimeout(() => {
+          document.getElementById('earthquakeModal').classList.add('active');
+          localStorage.setItem('safetyInstructionsViewed', 'true');
+        }, 2000);
+      }
+    });
+  </script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const synth = window.speechSynthesis;
+  
+  document.querySelectorAll('.modal').forEach((modal, index) => {
+    // Create container for buttons
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'speech-controls';
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.gap = '10px';
+    buttonContainer.style.marginTop = '20px';
+    
+    // Create buttons
+    const playBtn = document.createElement('button');
+    const stopBtn = document.createElement('button');
+    
+    // Use text instead of emojis
+    playBtn.innerHTML = '<span class="icon">▷ </span> Play';
+    stopBtn.innerHTML = '<span class="icon">◻️</span> Stop';
+    
+    // Apply styles to buttons
+    [playBtn, stopBtn].forEach(btn => {
+      btn.style.display = 'flex';
+      btn.style.alignItems = 'center';
+      btn.style.justifyContent = 'center';
+      btn.style.padding = '8px 16px';
+      btn.style.border = 'none';
+      btn.style.borderRadius = '6px';
+      btn.style.cursor = 'pointer';
+      btn.style.fontFamily = 'Arial, sans-serif';
+      btn.style.fontWeight = 'bold';
+      btn.style.transition = 'all 0.2s ease';
+      btn.style.minWidth = '100px';
+    });
+    
+    // Individual button styles
+    playBtn.style.backgroundColor = '#4CAF50';
+    playBtn.style.color = 'white';
+    stopBtn.style.backgroundColor = '#f44336';
+    stopBtn.style.color = 'white';
+    
+    // Hover effects
+    playBtn.onmouseover = function() { this.style.opacity = '0.9'; };
+    playBtn.onmouseout = function() { this.style.opacity = '1'; };
+    stopBtn.onmouseover = function() { this.style.opacity = '0.9'; };
+    stopBtn.onmouseout = function() { this.style.opacity = '1'; };
+    
+    // Style for the icons
+    const icons = playBtn.querySelector('.icon'), stopIcon = stopBtn.querySelector('.icon');
+    [icons, stopIcon].forEach(icon => {
+      if (icon) {
+        icon.style.fontWeight = 'bold';
+        icon.style.marginRight = '6px';
+        icon.style.fontSize = '12px';
+      }
+    });
+    
+    // Add buttons to container
+    buttonContainer.appendChild(playBtn);
+    buttonContainer.appendChild(stopBtn);
+    
+    // Add container to modal
+    modal.appendChild(buttonContainer);
+    
+    // Function to extract and read text
+    function speakModalContent() {
+      let textToRead = '';
+      
+      const headers = modal.querySelectorAll('.modal-content h4');
+      const lists = modal.querySelectorAll('.modal-content ul');
+      
+      headers.forEach((header, i) => {
+        textToRead += header.textContent + '. ';
+        if (lists[i]) {
+          const items = lists[i].querySelectorAll('li');
+          items.forEach((item) => {
+            textToRead += item.textContent + '. ';
+          });
+        }
+      });
+      
+      const utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.rate = 1;
+      
+      // Visual feedback when speaking
+      playBtn.style.backgroundColor = '#2E7D32';
+      playBtn.disabled = true;
+      playBtn.style.cursor = 'not-allowed';
+      playBtn.innerHTML = '<span class="icon">►</span> Playing...';
+      
+      // Reset button when done
+      utterance.onend = function() {
+        playBtn.style.backgroundColor = '#4CAF50';
+        playBtn.disabled = false;
+        playBtn.style.cursor = 'pointer';
+        playBtn.innerHTML = '<span class="icon">►</span> Play';
+      };
+      
+      synth.speak(utterance);
+    }
+    
+    // Event listeners
+    playBtn.addEventListener('click', () => {
+      if (!synth.speaking) {
+        speakModalContent();
+      }
+    });
+    
+    stopBtn.addEventListener('click', () => {
+      if (synth.speaking) {
+        synth.cancel();
+        playBtn.style.backgroundColor = '#4CAF50';
+        playBtn.disabled = false;
+        playBtn.style.cursor = 'pointer';
+        playBtn.innerHTML = '<span class="icon">►</span> Play';
+      }
+    });
+  });
+});
+
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const logoutButton = document.querySelector('.logout-btn');
+
+    // Handle logout
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        // Update login state
+        localStorage.setItem('isLoggedIn', 'false');
+        // Broadcast logout event
+        localStorage.setItem('logout-event', Date.now());
+        // Redirect to login
+        window.location.href = 'login.html';
+      });
+    }
+
+    // Listen for storage events (login/logout across tabs)
+    window.addEventListener('storage', function(event) {
+      if (event.key === 'logout-event') {
+        // Another tab logged out
+        window.location.href = 'login.html';
+      }
+      if (event.key === 'login-event') {
+        // Another tab logged in
+        window.location.reload(); // Reload current tab to reflect login
+      }
+    });
+
+    // Redirect if not logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true' && !window.location.href.includes('login.html')) {
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
+</body>
+</html>

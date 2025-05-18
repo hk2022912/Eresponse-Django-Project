@@ -1,0 +1,1019 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Response - Profile</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fdf2f2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Header */
+    header {
+      background-color: #ffeaea;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .site-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #c9302c;
+    }
+    
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+    
+    .nav-links a:hover {
+      color: #c9302c;
+      background-color: rgba(201, 48, 44, 0.1);
+    }
+    
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-btn {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .dropdown-btn:hover {
+      color: #c9302c;
+      background-color: rgba(201, 48, 44, 0.1);
+    }
+    
+    .dropdown-btn::after {
+      content: '▼';
+      font-size: 10px;
+      margin-left: 5px;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 4px;
+      z-index: 10;
+      top: 100%;
+      left: 0;
+    }
+    
+    .dropdown-content a {
+      color: #444;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.3s ease;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+      color: #c9302c;
+    }
+    
+    .dropdown-content .logout-btn {
+      color: #c9302c;
+      font-weight: 500;
+      border-top: 1px solid #eee;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    /* Mobile Styles for Dropdown */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 24px;
+    }
+    
+    /* Profile Container */
+    .profile-container {
+      background-color: white;
+      padding: 25px;
+      max-width: 600px;
+      margin: 30px auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+    
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .profile-header h2 {
+      color: #c9302c;
+      font-size: 24px;
+    }
+    
+    /* Profile image styles */
+    .profile-image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffeaea;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+    }
+    
+    .image-upload {
+      display: none;
+    }
+    
+    .change-image-btn {
+      background-color: #c9302c;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    
+    .change-image-btn:hover {
+      background-color: #a82723;
+    }
+    
+    .edit-btn {
+      background-color: #c9302c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .edit-btn:hover {
+      background-color: #a82723;
+    }
+    
+    .save-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    
+    .save-btn:hover {
+      background-color: #218838;
+    }
+    
+    .cancel-btn {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+    }
+    
+    .cancel-btn:hover {
+      background-color: #5a6268;
+    }
+    
+    .button-group {
+      display: none;
+      text-align: center;
+    }
+    
+    .profile-item {
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      background-color: #ffeaea;
+      transition: all 0.3s ease;
+    }
+    
+    .profile-item:hover {
+      background-color: #ffe0e0;
+    }
+    
+    .profile-item strong {
+      display: inline-block;
+      width: 140px;
+      color: #c9302c;
+      font-weight: 600;
+    }
+    
+    .profile-item span {
+      color: #444;
+      font-weight: 500;
+    }
+    
+    .profile-item input {
+      width: calc(100% - 150px);
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      display: none;
+    }
+    
+    .profile-item.edit-mode span {
+      display: none;
+    }
+    
+    .profile-item.edit-mode input {
+      display: inline-block;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      nav {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #ffeaea;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links {
+        position: static;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding: 0;
+        gap: 0;
+        align-items: flex-start;
+      }
+      
+      .nav-links.active {
+        max-height: 500px;
+      }
+      
+      .nav-links li {
+        width: 100%;
+      }
+      
+      .nav-links a, .dropdown-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 20px;
+        margin: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      
+      .dropdown {
+        width: 100%;
+      }
+      
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 20px;
+      }
+      
+      .dropdown-content.show {
+        max-height: 300px;
+      }
+      
+      .dropdown-content a {
+        padding: 10px 20px;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      
+      .profile-container {
+        width: 90%;
+        padding: 15px;
+        margin: 15px auto;
+      }
+      
+      .profile-item {
+        flex-direction: column;
+      }
+      
+      .profile-item strong {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+      }
+      
+      .profile-item input {
+        width: 100%;
+      }
+      
+      .profile-image {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .edit-btn {
+        width: 100%;
+      }
+      
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      
+      .button-group.show {
+        display: flex;
+      }
+      
+      .cancel-btn {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo-title">
+        <img src="dp.png" alt="E-Response Logo" class="logo" />
+        <h1 class="site-title">E-Response</h1>
+      </div>
+      <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+      <nav>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="homepage.html">Home</a></li>
+          <li class="dropdown">
+            <button class="dropdown-btn" id="menu-dropdown-btn">Menu</button>
+            <div class="dropdown-content" id="menu-dropdown">
+              <a href="preparedness.html">Preparedness</a>
+              <a href="emergency_contacts.html">Emergency Contacts</a>
+              <a href="guides.html">Guides and Tutorials</a>
+              <a href="login.html" class="logout-btn">Log Out</a>
+            </div>
+          </li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="profile-container">
+      <div class="profile-header">
+        <h2>User Profile</h2>
+      </div>
+      
+      <!-- Profile Image Section -->
+      <div class="profile-image-container">
+        <img src="/api/placeholder/150/150" alt="Profile Picture" id="profileImage" class="profile-image">
+        <input type="file" id="imageUpload" class="image-upload" accept="image/*">
+        <button class="change-image-btn" id="changeImageBtn">Change Profile Picture</button>
+      </div>
+      
+      <div class="profile-content" id="profileContent">
+        <div class="profile-item" id="emailItem">
+          <strong>Email:</strong>
+          <span id="emailValue"></span>
+          <input type="email" id="emailInput" />
+        </div>
+        
+        <div class="profile-item" id="usernameItem">
+          <strong>Username:</strong>
+          <span id="usernameValue"></span>
+          <input type="text" id="usernameInput" />
+        </div>
+        
+        <div class="profile-item" id="firstNameItem">
+          <strong>First Name:</strong>
+          <span id="firstNameValue"></span>
+          <input type="text" id="firstNameInput" />
+        </div>
+        
+        <div class="profile-item" id="lastNameItem">
+          <strong>Last Name:</strong>
+          <span id="lastNameValue"></span>
+          <input type="text" id="lastNameInput" />
+        </div>
+        
+        <div class="profile-item" id="ageItem">
+          <strong>Age:</strong>
+          <span id="ageValue"></span>
+          <input type="number" id="ageInput" />
+        </div>
+        
+        <div class="profile-item" id="contactItem">
+          <strong>Contact Number:</strong>
+          <span id="contactValue"></span>
+          <input type="text" id="contactInput" />
+        </div>
+
+        <button class="edit-btn" id="editBtn">Edit Profile</button>
+        <div class="button-group" id="buttonGroup">
+          <button class="save-btn" id="saveBtn">Save Changes</button>
+          <button class="cancel-btn" id="cancelBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+          navMenu.classList.toggle('active');
+        });
+      }
+      
+      // Dropdown on mobile
+      const dropdownBtn = document.getElementById('menu-dropdown-btn');
+      const dropdownContent = document.getElementById('menu-dropdown');
+      
+      if (dropdownBtn && window.innerWidth <= 768) {
+        dropdownBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          dropdownContent.classList.toggle('show');
+        });
+      }
+      
+      // Check if user is logged in
+      const userData = JSON.parse(localStorage.getItem('user_data'));
+      if (!userData) {
+        alert('You must be logged in to view this page');
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // Display user data
+      displayUserData(userData);
+      
+      // Profile Image Functionality
+      const profileImage = document.getElementById('profileImage');
+      const imageUpload = document.getElementById('imageUpload');
+      const changeImageBtn = document.getElementById('changeImageBtn');
+      
+      // Display user profile image if available
+      if (userData.profile_image) {
+        profileImage.src = userData.profile_image;
+      }
+      
+      changeImageBtn.addEventListener('click', function() {
+        imageUpload.click();
+      });
+      
+      imageUpload.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            // Display the selected image
+            profileImage.src = e.target.result;
+            
+            // In a real app, you would upload the image to a server here
+            // For demo purposes, we'll save it in localStorage
+            const updatedUserData = {...userData, profile_image: e.target.result};
+            localStorage.setItem('user_data', JSON.stringify(updatedUserData));
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      // Edit profile functionality
+      const editBtn = document.getElementById('editBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const buttonGroup = document.getElementById('buttonGroup');
+      
+      editBtn.addEventListener('click', function() {
+        // Toggle edit mode
+        editBtn.style.display = 'none';
+        buttonGroup.style.display = 'flex';
+        
+        // Show input fields
+        const profileItems = document.querySelectorAll('.profile-item');
+        profileItems.forEach(item => {
+          item.classList.add('edit-mode');
+        });
+        
+        // Populate input fields with current values
+        document.getElementById('emailInput').value = userData.email;
+        document.getElementById('usernameInput').value = userData.username;
+        document.getElementById('firstNameInput').value = userData.first_name;
+        document.getElementById('lastNameInput').value = userData.last_name;
+        document.getElementById('ageInput').value = userData.age;
+        document.getElementById('contactInput').value = userData.contact_number;
+      });
+      
+      saveBtn.addEventListener('click', async function() {
+        // Get updated values
+        const updatedData = {
+          email: document.getElementById('emailInput').value.trim(),
+          username: document.getElementById('usernameInput').value.trim(),
+          first_name: document.getElementById('firstNameInput').value.trim(),
+          last_name: document.getElementById('lastNameInput').value.trim(),
+          age: document.getElementById('ageInput').value,
+          contact_number: document.getElementById('contactInput').value.trim()
+        };
+        
+        try {
+          // In a real app, you would send this to your API
+          // For this example, we'll just update localStorage
+          
+          // Here's how you would make the API call in a real application:
+          /*
+          const response = await fetch('http://127.0.0.1:8000/api/update-profile/', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${userData.token}` // Assuming you have a token
+            },
+            body: JSON.stringify(updatedData)
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('user_data', JSON.stringify(data.user_data));
+            alert('Profile updated successfully!');
+          } else {
+            const error = await response.json();
+            alert('Update failed: ' + error.message);
+          }
+          */
+          
+          // For demo purposes, just update localStorage
+          const updatedUserData = {...userData, ...updatedData};
+          localStorage.setItem('user_data', JSON.stringify(updatedUserData));
+          
+          // Exit edit mode and display updated data
+          exitEditMode();
+          displayUserData(updatedUserData);
+          
+          alert('Profile updated successfully!');
+        } catch (error) {
+          console.error('Update error:', error);
+          alert('Failed to update profile. Please try again.');
+        }
+      });
+      
+      cancelBtn.addEventListener('click', function() {
+        exitEditMode();
+      });
+      
+      function exitEditMode() {
+        // Hide edit mode
+        editBtn.style.display = 'block';
+        buttonGroup.style.display = 'none';
+        
+        // Hide input fields
+        const profileItems = document.querySelectorAll('.profile-item');
+        profileItems.forEach(item => {
+          item.classList.remove('edit-mode');
+        });
+      }
+      
+      function displayUserData(userData) {
+        document.getElementById('emailValue').textContent = userData.email;
+        document.getElementById('usernameValue').textContent = userData.username;
+        document.getElementById('firstNameValue').textContent = userData.first_name;
+        document.getElementById('lastNameValue').textContent = userData.last_name;
+        document.getElementById('ageValue').textContent = userData.age;
+        document.getElementById('contactValue').textContent = userData.contact_number;
+      }
+      
+      // Logout functionality from dropdown
+      const logoutBtn = document.querySelector('.logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventLisDener('click', function(e) {
+          localStorage.removeItem('user_data');
+          window.location.href = 'login.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+<style>
+    /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #fdf2f2;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Header Styles */
+  header {
+    background-color: #ffeaea;
+    color: #444;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .logo-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .site-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #c9302c;
+  }
+  
+  /* Navigation Styles */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .nav-links a {
+    color: #444;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #c9302c;
+    background-color: rgba(201, 48, 44, 0.1);
+  }
+  
+  /* Dropdown Menu */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: transparent;
+    color: #444;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .dropdown-btn::after {
+    content: '▼';
+    font-size: 10px;
+    margin-left: 5px;
+  }
+  
+  .dropdown-btn:hover {
+    color: #c9302c;
+    background-color: rgba(201, 48, 44, 0.1);
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1;
+    right: 0;
+    border-radius: 4px;
+  }
+  
+  .dropdown-content a {
+    color: #444;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #c9302c;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .logout-btn {
+    color: #c9302c !important;
+    font-weight: 500;
+    border-top: 1px solid #eee;
+  }
+  
+  /* Profile Container */
+  .profile-container {
+    background-color: white;
+    padding: 18px;
+    max-width: 580px;
+    margin: 25px auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+  }
+  
+  .profile-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  }
+  
+  .profile-container h2 {
+    margin-bottom: 16px;
+    color: #c9302c;
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+  }
+  
+  .profile-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #c9302c;
+  }
+  
+  .profile-item {
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background-color: #ffeaea;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-item:hover {
+    background-color: #ffe0e0;
+    transform: translateX(5px);
+  }
+  
+  .profile-item strong {
+    display: inline-block;
+    width: 110px;
+    color: #c9302c;
+    font-weight: 600;
+  }
+  
+  .profile-item span {
+    color: #444;
+    font-weight: 500;
+  }
+  
+  /* Hamburger menu for mobile */
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 15px 20px;
+    }
+    
+    .hamburger {
+      display: block;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    
+    nav {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: #ffeaea;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .nav-links {
+      position: static;
+      flex-direction: column;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0;
+      gap: 0;
+      align-items: flex-start;
+    }
+    
+    .nav-links.active {
+      max-height: 500px;
+    }
+    
+    .nav-links li {
+      width: 100%;
+    }
+    
+    .nav-links a, .dropdown-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 20px;
+      margin: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .dropdown {
+      width: 100%;
+    }
+    
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 20px;
+    }
+    
+    .dropdown-content.show {
+      max-height: 300px;
+    }
+    
+    .dropdown-content a {
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .profile-container {
+      width: 90%;
+      padding: 15px;
+      margin: 15px auto;
+    }
+    
+    .profile-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .profile-item strong {
+      width: 100%;
+      margin-bottom: 4px;
+    }
+  }
+</style>

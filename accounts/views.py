@@ -164,3 +164,21 @@ class ProtectedView(APIView):
     def get(self, request):
         return Response({"message": "You have access!"})
     
+
+# accounts/views.py
+from django.shortcuts import render
+
+def homepage(request):
+    return render(request, 'accounts/homepage.html')
+
+from django.shortcuts import render
+
+def login_view(request):
+    return render(request, 'accounts/login.html')  # make sure this file exists
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Add this view if not already present
+def homepage_view(request):
+    return HttpResponse("Welcome to the Homepage!")  # Simple plain text response

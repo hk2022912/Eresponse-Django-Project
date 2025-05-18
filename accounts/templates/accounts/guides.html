@@ -1,0 +1,1023 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Response: Guides and Tutorials</title>
+  <link rel="stylesheet" href="guides.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo-title">
+        <img src="C:\Users\hazel\E-Response\dp.png" alt="E-Response Logo" class="logo">
+        <div class="site-title">E-Response</div>
+      </div>
+      <nav>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="homepage.html">Home</a></li>
+          <li class="dropdown">
+            <button class="dropdown-btn" id="menu-dropdown-btn">Menu</button>
+            <div class="dropdown-content" id="menu-dropdown">
+              <a href="preparedness.html">Preparedness</a>
+              <a href="emergency_contacts.html">Emergency Contacts</a>
+              <a href="guides.html" class="active">Guides and Tutorials</a>
+              <a href="login.html" class="logout-btn">Log Out</a>
+
+          </li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-title-section">
+    <h1>Emergency Response Guides and Tutorials</h1>
+    <p class="quote">"Knowledge is power, knowledge is safety, knowledge is happiness." – Thomas Jefferson</p>
+  </div>
+
+  <div class="tutorials-container">
+    <div class="card" onclick="openModal('modal1')">
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal1.jfif" alt="Jaw Injury Bandage" class="thumbnail" />
+      <div class="card-content">
+        <a href="#" class="card-title">Jaw Injury Bandage Technique</a>
+        <p class="card-source">Singapore Emergency Responder Academy</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal2')">
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal2.webp" alt="Protect During Earthquake" class="thumbnail" />
+      <div class="card-content">
+        <a href="#" class="card-title">How to Protect Yourself During an Earthquake</a>
+        <p class="card-source">National Disaster Management</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal3')">
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal3.jpg" alt="How to Treat a Fracture" class="thumbnail" />
+      <div class="card-content">
+        <a href="#" class="card-title">First Aid for Fractures: Assessment and Treatment</a>
+        <p class="card-source">Medical First Responders</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal4')">
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal4.jfif" alt="The Earthquake Plan" class="thumbnail" />
+      <div class="card-content">
+        <a href="#" class="card-title">The Comprehensive Earthquake Preparedness Plan</a>
+        <p class="card-source">Emergency Management Institute</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal5')">
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal5.jpg" alt="CPR Technique" class="thumbnail" />
+      <div class="card-content">
+        <a href="#" class="card-title">Basic CPR: The Chain of Survival</a>
+        <p class="card-source">American Heart Association</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal6')">
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal6.jfif" alt="Home Fire Safety" class="thumbnail" />
+      <div class="card-content">
+        <a href="#" class="card-title">Home Fire Safety and Evacuation Planning</a>
+        <p class="card-source">National Fire Protection Association</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals with instructions and audio/video options -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal1')">&times;</span>
+      <div class="modal-header">
+        <h2>Jaw Injury Bandage Technique</h2>
+      </div>
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal01.png" alt="Jaw Injury Bandaging Demonstration">
+      
+      <div class="instructions" id="instructions-modal1">
+        <h3>Step-by-Step Instructions:</h3>
+        <ol>
+          <li>Ensure the patient is sitting comfortably and can breathe properly.</li>
+          <li>Place the center of the bandage under the chin.</li>
+          <li>Bring both ends up and cross them over the top of the head.</li>
+          <li>Take the ends around to the back of the head and cross them again.</li>
+          <li>Bring the ends forward and secure with a knot or safety pin at the front.</li>
+          <li>Check that the bandage is secure but not too tight.</li>
+          <li>Monitor the patient for any signs of breathing difficulty.</li>
+        </ol>
+      </div>
+      
+      <div class="button-container">
+        <a href="https://www.youtube.com/watch?v=2ffYeuTjjvI" target="_blank" class="video-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+            <path d="M10 8L16 12L10 16V8Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Watch Video Tutorial
+        </a>
+        <button class="audio-button" onclick="playAudio('modal1')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Listen to Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal2')">&times;</span>
+      <div class="modal-header">
+        <h2>Protecting Yourself During an Earthquake</h2>
+      </div>
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal02.png" alt="Earthquake Safety Demonstration">
+      
+      <div class="instructions" id="instructions-modal2">
+        <h3>What to Do During an Earthquake:</h3>
+        <ul>
+          <li><strong>Drop:</strong> Get down on your hands and knees to prevent falling.</li>
+          <li><strong>Cover:</strong> Cover your head and neck with your arms. If possible, crawl under a sturdy desk or table.</li>
+          <li><strong>Hold On:</strong> Hold on to your shelter until the shaking stops.</li>
+          <li>If there's no table or desk nearby, crouch against an interior wall away from windows.</li>
+          <li>Stay indoors until the shaking stops and you're sure it's safe to exit.</li>
+          <li>If you're outdoors, move to a clear area away from buildings, trees, and power lines.</li>
+        </ul>
+      </div>
+      
+      <div class="button-container">
+        <a href="https://www.youtube.com/watch?v=2ffYeuTjjvI" target="_blank" class="video-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+            <path d="M10 8L16 12L10 16V8Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Watch Video Tutorial
+        </a>
+        <button class="audio-button" onclick="playAudio('modal2')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Listen to Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal3')">&times;</span>
+      <div class="modal-header">
+        <h2>First Aid for Fractures</h2>
+      </div>
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal03.png" alt="Fracture First Aid Demonstration">
+      
+      <div class="instructions" id="instructions-modal3">
+        <h3>How to Treat a Suspected Fracture:</h3>
+        <ol>
+          <li><strong>Assess the situation:</strong> Check for bleeding, deformity, and pain level.</li>
+          <li><strong>Immobilize the area:</strong> Prevent movement of the injured body part.</li>
+          <li><strong>Apply a splint if available:</strong> Use firm materials to stabilize the fracture.</li>
+          <li><strong>Control bleeding:</strong> Apply gentle pressure with a clean cloth if necessary.</li>
+          <li><strong>Apply cold compress:</strong> Reduce swelling with an ice pack (15 minutes on, 15 minutes off).</li>
+          <li><strong>Elevate the injury:</strong> If possible, raise the injured area above heart level.</li>
+          <li><strong>Seek medical help:</strong> All suspected fractures should be evaluated by medical professionals.</li>
+        </ol>
+      </div>
+      
+      <div class="button-container">
+        <a href="https://www.youtube.com/watch?v=2ffYeuTjjvI" target="_blank" class="video-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+            <path d="M10 8L16 12L10 16V8Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Watch Video Tutorial
+        </a>
+        <button class="audio-button" onclick="playAudio('modal3')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Listen to Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal4')">&times;</span>
+      <div class="modal-header">
+        <h2>The Earthquake Preparedness Plan</h2>
+      </div>
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal04.png" alt="Earthquake Preparedness Diagram">
+      
+      <div class="instructions" id="instructions-modal4">
+        <h3>Before an Earthquake:</h3>
+        <ul>
+          <li>Create an emergency plan and share it with all household members.</li>
+          <li>Prepare an emergency kit with water, food, medications, and essential supplies.</li>
+          <li>Secure heavy furniture and appliances to walls.</li>
+          <li>Know where and how to shut off utilities (gas, water, electricity).</li>
+          <li>Identify safe spots in each room (under sturdy furniture, against interior walls).</li>
+          <li>Practice earthquake drills regularly with your family or household.</li>
+        </ul>
+        
+        <h3>After an Earthquake:</h3>
+        <ul>
+          <li>Check for injuries and provide first aid if needed.</li>
+          <li>Inspect your home for damage, especially gas leaks and electrical issues.</li>
+          <li>Listen to emergency radio for instructions and updates.</li>
+          <li>Expect and prepare for aftershocks.</li>
+          <li>Use phones only for emergency calls.</li>
+        </ul>
+      </div>
+      
+      <div class="button-container">
+        <a href="https://www.youtube.com/watch?v=2ffYeuTjjvI" target="_blank" class="video-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+            <path d="M10 8L16 12L10 16V8Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Watch Video Tutorial
+        </a>
+        <button class="audio-button" onclick="playAudio('modal4')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Listen to Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal5" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal5')">&times;</span>
+      <div class="modal-header">
+        <h2>Basic CPR: The Chain of Survival</h2>
+      </div>
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal05.png" alt="CPR Demonstration">
+      
+      <div class="instructions" id="instructions-modal5">
+        <h3>Adult CPR Steps:</h3>
+        <ol>
+          <li><strong>Check for responsiveness:</strong> Tap the person and shout "Are you okay?"</li>
+          <li><strong>Call for help:</strong> Have someone call emergency services immediately.</li>
+          <li><strong>Check for breathing:</strong> Look, listen, and feel for breathing for no more than 10 seconds.</li>
+          <li><strong>Begin chest compressions:</strong> Place hands in center of chest, compress at least 2 inches deep.</li>
+          <li><strong>Compression rate:</strong> Push hard and fast at a rate of 100-120 compressions per minute.</li>
+          <li><strong>Rescue breaths:</strong> After 30 compressions, give 2 rescue breaths (if trained).</li>
+          <li><strong>Continue CPR:</strong> Maintain cycles of 30 compressions and 2 breaths until help arrives.</li>
+          <li><strong>Use AED:</strong> If available, turn it on and follow the verbal instructions.</li>
+        </ol>
+        
+        <h3>Remember:</h3>
+        <ul>
+          <li>Proper hand position is key: center of chest, between nipples</li>
+          <li>Allow chest to fully recoil between compressions</li>
+          <li>Minimize interruptions in compressions</li>
+          <li>If untrained, perform hands-only CPR (compressions without rescue breaths)</li>
+        </ul>
+      </div>
+      
+      <div class="button-container">
+        <a href="https://www.youtube.com/watch?v=2ffYeuTjjvI" target="_blank" class="video-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+            <path d="M10 8L16 12L10 16V8Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Watch Video Tutorial
+        </a>
+        <button class="audio-button" onclick="playAudio('modal5')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Listen to Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal6" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal6')">&times;</span>
+      <div class="modal-header">
+        <h2>Home Fire Safety and Evacuation Planning</h2>
+      </div>
+      <img src="C:\Users\krist\Downloads\E-Response\images\modal06.png" alt="Home Fire Safety Diagram">
+      
+      <div class="instructions" id="instructions-modal6">
+        <h3>Fire Prevention Tips:</h3>
+        <ul>
+          <li>Install smoke alarms on every level of your home and test them monthly.</li>
+          <li>Keep flammable items at least three feet from heat sources.</li>
+          <li>Never leave cooking unattended.</li>
+          <li>Check electrical cords for damage and don't overload outlets.</li>
+          <li>Keep portable heaters at least three feet from anything that can burn.</li>
+          <li>Have your heating system serviced annually by a qualified professional.</li>
+        </ul>
+        
+        <h3>Creating a Home Escape Plan:</h3>
+        <ol>
+          <li><strong>Draw a floor plan</strong> of your home showing all possible exits.</li>
+          <li><strong>Mark two ways out</strong> of each room, including windows and doors.</li>
+          <li><strong>Designate a meeting place</strong> outside where everyone will gather.</li>
+          <li><strong>Practice your fire drill</strong> both during day and night.</li>
+          <li><strong>If smoke is present,</strong> get low and go under the smoke to exit.</li>
+          <li><strong>Remember:</strong> Once you get out, stay out. Never go back inside a burning building.</li>
+        </ol>
+      </div>
+      
+      <div class="button-container">
+        <a href="https://www.youtube.com/watch?v=2ffYeuTjjvI" target="_blank" class="video-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+            <path d="M10 8L16 12L10 16V8Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Watch Video Tutorial
+        </a>
+        <button class="audio-button" onclick="playAudio('modal6')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Listen to Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 E-Response. All rights reserved.</p>
+  </footer>
+
+  <script src="guides.js" defer></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const logoutButton = document.querySelector('.logout-btn');
+
+      // Handle logout
+      if (logoutButton) {
+        logoutButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          // Update login state
+          localStorage.setItem('isLoggedIn', 'false');
+          // Broadcast logout event
+          localStorage.setItem('logout-event', Date.now());
+          // Redirect to login
+          window.location.href = 'login.html';
+        });
+      }
+
+      // Listen for storage events (login/logout across tabs)
+      window.addEventListener('storage', function(event) {
+        if (event.key === 'logout-event') {
+          // Another tab logged out
+          window.location.href = 'login.html';
+        }
+        if (event.key === 'login-event') {
+          // Another tab logged in
+          window.location.reload(); // Reload current tab to reflect login
+        }
+      });
+
+      // Redirect if not logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (isLoggedIn !== 'true' && !window.location.href.includes('login.html')) {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const logoutButton = document.querySelector('.logout-btn');
+
+    // Handle logout
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        // Update login state
+        localStorage.setItem('isLoggedIn', 'false');
+        // Broadcast logout event
+        localStorage.setItem('logout-event', Date.now());
+        // Redirect to login
+        window.location.href = 'login.html';
+      });
+    }
+
+    // Listen for storage events (login/logout across tabs)
+    window.addEventListener('storage', function(event) {
+      if (event.key === 'logout-event') {
+        // Another tab logged out
+        window.location.href = 'login.html';
+      }
+      if (event.key === 'login-event') {
+        // Another tab logged in
+        window.location.reload(); // Reload current tab to reflect login
+      }
+    });
+
+    // Redirect if not logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true' && !window.location.href.includes('login.html')) {
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
+</body>
+</html>
+
+<style>
+    /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #fdf2f2;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Header Styles */
+  header {
+    background-color: #ffeaea;
+    color: #444;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .logo-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .site-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #c9302c;
+  }
+  
+  /* Navigation Styles */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .nav-links a {
+    color: #444;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #c9302c;
+    background-color: rgba(201, 48, 44, 0.1);
+  }
+  
+  /* Dropdown Menu */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: transparent;
+    color: #444;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .dropdown-btn::after {
+    content: '▼';
+    font-size: 10px;
+    margin-left: 5px;
+  }
+  
+  .dropdown-btn:hover {
+    color: #c9302c;
+    background-color: rgba(201, 48, 44, 0.1);
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1;
+    right: 0;
+    border-radius: 4px;
+  }
+  
+  .dropdown-content a {
+    color: #444;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #c9302c;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .logout-btn {
+    color: #c9302c !important;
+    font-weight: 500;
+    border-top: 1px solid #eee;
+  }
+  
+  /* Page Title Section */
+  .page-title-section {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: #ffeaea;
+    margin-bottom: 2rem;
+  }
+  
+  .page-title-section h1 {
+    font-size: 32px;
+    color: #c9302c;
+    margin-bottom: 0.5rem;
+  }
+  
+  .quote {
+    font-style: italic;
+    color: #6c757d;
+  }
+  
+  /* Tutorials Container */
+  .tutorials-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+  }
+  
+  /* Card Styles */
+  .card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  }
+  
+  .thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .card-title {
+    display: block;
+    color: #c9302c;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+  
+  .card-source {
+    color: #555;
+    font-size: 0.9rem;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .close:hover {
+    color: #333;
+  }
+  
+  .modal-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .modal-header h2 {
+    color: #c9302c;
+    font-size: 1.8rem;
+  }
+  
+  .modal img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Instructions Styles */
+  .instructions {
+    margin-bottom: 1.5rem;
+  }
+  
+  .instructions h3 {
+    color: #c9302c;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  .instructions ul,
+  .instructions ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .instructions li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .instructions strong {
+    color: #c9302c;
+  }
+  
+  /* Button Container */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  .video-link,
+  .audio-button {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .video-link {
+    background-color: #d9534f;
+    color: white;
+  }
+  
+  .video-link:hover {
+    background-color: #c9302c;
+  }
+  
+  .audio-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  
+  .audio-button:hover {
+    background-color: #c9302c;
+  }
+  
+  .video-link svg,
+  .audio-button svg {
+    margin-right: 8px;
+  }
+  
+  /* Footer Styles */
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 40px 0 20px;
+    margin-top: 2rem;
+  }
+  
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .footer-section h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: #d9534f;
+  }
+  
+  .copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+    font-size: 14px;
+    color: #aaa;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 15px 20px;
+    }
+    
+    .nav-links {
+      gap: 1rem;
+    }
+    
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 24px;
+    }
+    
+    nav {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: #ffeaea;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .nav-links {
+      position: static;
+      flex-direction: column;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0;
+      gap: 0;
+      align-items: flex-start;
+    }
+    
+    .nav-links.active {
+      max-height: 500px;
+    }
+    
+    .nav-links li {
+      width: 100%;
+    }
+    
+    .nav-links a, .dropdown-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 20px;
+      margin: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .dropdown {
+      width: 100%;
+    }
+    
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 20px;
+    }
+    
+    .dropdown-content.show {
+      max-height: 300px;
+    }
+    
+    .dropdown-content a {
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .button-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .video-link,
+    .audio-button {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      width: 95%;
+      margin: 10% auto;
+    }
+    
+    .tutorials-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .page-title-section h1 {
+      font-size: 1.8rem;
+    }
+    
+    .modal-header h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .page-title-section h1 {
+      font-size: 1.8rem;
+    }
+    
+    .modal-header h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+    
+// Create an object to store audio elements
+const audioElements = {};
+
+function playAudio(modalId) {
+  // Check if this audio is already created
+  if (!audioElements[modalId]) {
+    // Create a new audio element
+    const audio = new Audio(`audio/${modalId}.mp3`);
+    audioElements[modalId] = audio;
+    
+    // Add event listeners for audio states
+    audio.addEventListener('ended', function() {
+      document.querySelector(`#${modalId} .audio-button`).classList.remove('playing');
+    });
+  }
+  
+  const audioElement = audioElements[modalId];
+  const button = document.querySelector(`#${modalId} .audio-button`);
+  
+  // If audio is already playing, pause it
+  if (!audioElement.paused) {
+    audioElement.pause();
+    audioElement.currentTime = 0;
+    button.classList.remove('playing');
+    button.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Listen to Instructions
+    `;
+  } else {
+    // Play the audio
+    audioElement.play();
+    button.classList.add('playing');
+    button.innerHTML = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15.54 8.46C16.4774 9.39764 17.0039 10.6692 17.0039 11.995C17.0039 13.3208 16.4774 14.5924 15.54 15.53" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19.07 5.93C20.9447 7.80528 21.9979 10.3489 21.9979 13C21.9979 15.6511 20.9447 18.1947 19.07 20.07" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Stop Audio
+    `;
+  }
+}
+
+// Function to open modal
+function openModal(modalId) {
+  document.getElementById(modalId).style.display = "block";
+  document.body.style.overflow = "hidden";
+}
+
+// Function to close modal
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = "none";
+  document.body.style.overflow = "auto";
+  
+  // Stop audio if playing when modal is closed
+  if (audioElements[modalId] && !audioElements[modalId].paused) {
+    audioElements[modalId].pause();
+    audioElements[modalId].currentTime = 0;
+    document.querySelector(`#${modalId} .audio-button`).classList.remove('playing');
+  }
+}
+
+// Close modal if clicked outside of content
+window.onclick = function(event) {
+  if (event.target.className === "modal") {
+    closeModal(event.target.id);
+  }
+}
+</script>

@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('', include('accounts.urls')),  # ✅ This line includes your app URLs
+    
     path('admin/', admin.site.urls),
 
     # Built-in and Djoser auth
@@ -15,4 +17,5 @@ urlpatterns = [
 
     # ✅ Add this to catch email verification
     path('accounts/', include('accounts.urls')),  # ✅ Fix: this enables /accounts/verify/...
+
 ]

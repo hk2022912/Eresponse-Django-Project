@@ -1,0 +1,892 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="homepage.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Response - Earthquake Emergency Response</title>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EResponse - Earthquake Preparedness</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <div class="container header-container">
+      <div class="logo-title">
+        <img src="dp.png" alt="E-Response Logo" class="logo" />
+        <h1 class="site-title">E-Response</h1>
+      </div>
+      <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+      <nav>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="homepage.html">Home</a></li>
+          <li class="dropdown">
+            <button class="dropdown-btn" id="menu-dropdown-btn">Menu</button>
+            <div class="dropdown-content" id="menu-dropdown">
+              <a href="preparedness.html">Preparedness</a>
+              <a href="emergency_contacts.html">Emergency Contacts</a>
+              <a href="guides.html">Guides and Tutorials</a>
+              <a href="#" class="logout-btn">Log Out</a>
+            </div>
+          </li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="overlay-text">
+      <p>
+        Earthquakes often damage critical infrastructure such as roads, bridges, hospitals, and power lines, severely hampering rescue operations and emergency response. E-Response helps communities prepare and respond effectively.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="news">
+    <div class="container">
+      <h2>Recent Earthquake News</h2>
+      <button class="fetch-btn" onclick="fetchEarthquakeNews()">Show Latest Earthquakes</button>
+      <div id="newsContainer" class="card-grid"></div>
+    </div>
+  </section>
+
+
+  <section class="info-section">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon">🏠</div>
+          <h3>Prepare Your Home</h3>
+          <p>Learn how to secure furniture, prepare emergency kits, and make your home safer during earthquakes.</p>
+          <a href="preparedness.html" class="info-link">Learn More</a>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🚨</div>
+          <h3>Emergency Response</h3>
+          <p>Know what to do during and immediately after an earthquake to protect yourself and your loved ones.</p>
+          <a href="emergency_contacts.html" class="info-link">Learn More</a>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <h3>Alert Systems</h3>
+          <p>Stay informed with early warning systems and emergency notifications for earthquake-prone areas.</p>
+          <a href="guides.html" class="info-link">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>E-Response</h3>
+          <p>Dedicated to earthquake preparedness, response, and community resilience since 2020.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon">f<i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon">t<i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon">in<i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Emergency Resources</a></li>
+            <li><a href="#">Preparedness</a></li>
+            <li><a href="#">About Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Emergency Contacts</a></li>
+            <li><a href="#">Preparedness Guides</a></li>
+            <li><a href="#">Educational Materials</a></li>
+            <li><a href="#">Community Training</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul class="footer-links">
+            <li>Email: info@e-response.org</li>
+            <li>Phone: +1 (555) 123-4567</li>
+            <li>Address: 123 Emergency Ave, Safety City</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 E-Response. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const channel = new BroadcastChannel('auth-channel');
+ 
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      const menuDropdownBtn = document.getElementById('menu-dropdown-btn');
+      const menuDropdown = document.getElementById('menu-dropdown');
+      const logoutButton = document.querySelector('.logout-btn');
+ 
+      // Check if user is logged in
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
+ 
+      // Toggle menu
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function () {
+          navMenu.classList.toggle('active');
+        });
+      }
+ 
+      // Toggle dropdown
+      if (menuDropdownBtn) {
+        menuDropdownBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          menuDropdown.classList.toggle('show');
+        });
+      }
+ 
+      document.body.addEventListener('click', function () {
+        if (menuDropdown && menuDropdown.classList.contains('show')) {
+          menuDropdown.classList.remove('show');
+        }
+      });
+ 
+      if (menuDropdown) {
+        menuDropdown.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+ 
+      // Handle logout
+      if (logoutButton) {
+        logoutButton.addEventListener('click', function (event) {
+          event.preventDefault();
+          localStorage.setItem('isLoggedIn', 'false');
+          channel.postMessage('logged-out');
+          window.location.href = 'login.html';
+        });
+      }
+ 
+      // Listen for login/logout across tabs
+      channel.onmessage = (event) => {
+        if (event.data === 'logged-out') {
+          localStorage.setItem('isLoggedIn', 'false');
+          window.location.href = 'login.html';
+        } else if (event.data === 'logged-in') {
+          localStorage.setItem('isLoggedIn', 'true');
+          if (!window.location.href.includes('homepage.html')) {
+            window.location.href = 'homepage.html';
+          }
+        }
+      };
+    });
+ 
+    // Earthquake News Function (unchanged)
+    async function fetchEarthquakeNews() {
+      const newsContainer = document.getElementById('newsContainer');
+      newsContainer.innerHTML = "<div class='loading'><span class='loading-animation'></span>Loading earthquake data...</div>";
+ 
+      const endpoint = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
+ 
+      try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        newsContainer.innerHTML = "";
+ 
+        if (data.features.length === 0) {
+          newsContainer.innerHTML = "<div class='no-data'>No significant earthquakes reported this week.</div>";
+          return;
+        }
+ 
+        data.features.forEach(eq => {
+          const magnitude = eq.properties.mag;
+          let magnitudeClass = 'low';
+ 
+          if (magnitude >= 6.0) {
+            magnitudeClass = 'high';
+          } else if (magnitude >= 5.0) {
+            magnitudeClass = 'medium';
+          }
+ 
+          const date = new Date(eq.properties.time);
+          const formattedDate = date.toLocaleString();
+          const place = eq.properties.place;
+ 
+          const item = document.createElement('div');
+          item.className = 'news-item';
+          item.innerHTML = `
+            <div class="news-item-header">
+              <h3>${place}</h3>
+            </div>
+            <div class="news-item-body">
+              <div class="news-item-details">
+                <div class="detail-item">
+                  <span class="detail-icon">📊</span>
+                  <span><strong>Magnitude:</strong> <span class="magnitude ${magnitudeClass}">${magnitude}</span></span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-icon">🕒</span>
+                  <span><strong>Time:</strong> ${formattedDate}</span>
+                </div>
+              </div>
+              <p>${eq.properties.title}</p>
+            </div>
+            <div class="news-item-footer">
+              <a href="${eq.properties.url}" target="_blank">View Full Details</a>
+            </div>
+          `;
+          newsContainer.appendChild(item);
+        });
+      } catch (error) {
+        console.error("Error fetching earthquake data:", error);
+        newsContainer.innerHTML = "<div class='no-data'>Failed to load earthquake data. Please try again later.</div>";
+      }
+    }
+ 
+    // Fetch earthquake news on page load
+    fetchEarthquakeNews();
+  </script>
+
+ 
+</body>
+</html>
+
+<style>
+    /* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdf2f2;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  background-color: #ffeaea;
+  padding: 15px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #c9302c;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  color: #c9302c;
+  background-color: rgba(201, 48, 44, 0.1);
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dropdown-btn:hover {
+  color: #c9302c;
+  background-color: rgba(201, 48, 44, 0.1);
+}
+
+.dropdown-btn::after {
+  content: '▼';
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+}
+
+.dropdown-content a {
+  color: #444;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+  color: #c9302c;
+}
+
+.dropdown-content .logout-btn {
+  color: #c9302c;
+  font-weight: 500;
+  border-top: 1px solid #eee;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Mobile Styles for Dropdown */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 24px;
+}
+
+/* === REDESIGNED NEWS SECTION === */
+.news {
+  background-color: #ffeed6;
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.news::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #c9302c, #d9534f, #f0ad4e);
+}
+
+.news h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #c9302c;
+  position: relative;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.news h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #c9302c, #d9534f);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+.fetch-btn {
+  background-color: #c9302c;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto 40px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(201, 48, 44, 0.3);
+}
+
+.fetch-btn:hover {
+  background-color: #a82622;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(201, 48, 44, 0.4);
+}
+
+.fetch-btn:active {
+  transform: translateY(1px);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.news-item {
+  border: none;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.news-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.news-item-header {
+  background: linear-gradient(45deg, #c9302c, #d9534f);
+  padding: 15px 20px;
+  color: white;
+}
+
+.news-item-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.4;
+}
+
+.news-item-body {
+  padding: 20px;
+}
+
+.news-item p {
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+.news-item-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-icon {
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c9302c;
+}
+
+.magnitude {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: bold;
+  color: white;
+  min-width: 60px;
+  font-size: 14px;
+}
+
+.high {
+  background-color: #c9302c;
+  box-shadow: 0 3px 6px rgba(201, 48, 44, 0.3);
+}
+
+.medium {
+  background-color: #ff9800;
+  box-shadow: 0 3px 6px rgba(255, 152, 0, 0.3);
+}
+
+.low {
+  background-color: #4caf50;
+  box-shadow: 0 3px 6px rgba(76, 175, 80, 0.3);
+}
+
+.news-item-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.news-item a {
+  text-decoration: none;
+  color: #c9302c;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  font-size: 14px;
+  background-color: rgba(201, 48, 44, 0.1);
+}
+
+.news-item a:hover {
+  background-color: rgba(201, 48, 44, 0.2);
+}
+
+.loading {
+  text-align: center;
+  padding: 30px;
+  grid-column: 1 / -1;
+  font-size: 18px;
+  color: #666;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.loading-animation {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(201, 48, 44, 0.3);
+  border-radius: 50%;
+  border-top-color: #c9302c;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.no-data {
+  grid-column: 1 / -1;
+  background-color: #f8f8f8;
+  padding: 30px;
+  text-align: center;
+  border-radius: 8px;
+  color: #666;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 500px;
+  background-color: #333; /* Fallback */
+  background: url('images/Myanmar_Earthquake_41717.webp') no-repeat center center/cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.overlay-text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-size: 22px;
+  max-width: 800px;
+  text-align: center;
+  padding: 30px 40px;
+  background: rgba(201, 48, 44, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Information Section */
+.info-section {
+  padding: 60px 0;
+  background-color: #d32f2f;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.info-item {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.info-icon {
+  font-size: 36px;
+  color: #d9534f;
+  margin-bottom: 15px;
+}
+
+.info-item h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 0 20px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.footer-section h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #d9534f;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #d9534f;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icon {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  background-color: #444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: #d9534f;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  header .container {
+    padding: 15px 20px;
+  }
+  
+  .hamburger {
+    display: block;
+  }
+  
+  nav {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #ffeaea;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  
+  .nav-links {
+    position: static;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0;
+    gap: 0;
+    align-items: flex-start;
+  }
+  
+  .nav-links.active {
+    max-height: 500px;
+  }
+  
+  .nav-links li {
+    width: 100%;
+  }
+  
+  .nav-links a, .dropdown-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    margin: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .dropdown {
+    width: 100%;
+  }
+  
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: 20px;
+  }
+  
+  .dropdown-content.show {
+    max-height: 300px;
+  }
+  
+  .dropdown-content a {
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .overlay-text {
+    font-size: 18px;
+    padding: 20px;
+  }
+  
+  .hero {
+    height: 400px;
+  }
+  
+  .news h2 {
+    font-size: 24px;
+  }
+  
+  .info-grid, .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid {
+    gap: 20px;
+  }
+  
+  .fetch-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .magnitude {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+}
+</style>

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from django.utils.deprecation import MiddlewareMixin  # ✅ Add this for custom middleware
 
@@ -75,7 +76,7 @@ ROOT_URLCONF = 'e_response.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'e_response', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,19 +118,22 @@ USE_I18N = True
 USE_TZ = True
 
 # ✅ Static files
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'e_response', 'static')
+]
 
 # ✅ CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True  # Allow session cookie to be sent
 CORS_ALLOWED_ORIGINS = [
-    'http://192.168.1.113:8000',  # Local IP
+    'http://10.0.0.55:8000',  # Local IP
     'http://localhost:19000',    # Expo local server
 ]
 
 # ✅ CSRF settings
-CSRF_TRUSTED_ORIGINS = ['http://192.168.1.113']
+CSRF_TRUSTED_ORIGINS = ['http://10.0.0.55']
 
 # 🔥 (No need for CSRF_EXEMPT_URLS anymore because middleware handles it)
 
@@ -146,5 +150,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 # settings.py
 
-SITE_DOMAIN = "http://192.168.1.113:8000"  # or your domain name
+SITE_DOMAIN = "http://10.0.0.55:8000"  # or your domain name
 

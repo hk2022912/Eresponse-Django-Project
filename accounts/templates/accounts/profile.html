@@ -1,0 +1,408 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="profile.css"/>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo-title">
+        <img src="dp.png" alt="E-Response Logo" class="logo"/>
+        <h1 class="site-title">E-Response</h1>
+      </div>
+      <button class="hamburger" id="menu-toggle"></button>
+      <nav>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="homepage.html">Home</a></li>
+          <li class="dropdown">
+            <button class="dropdown-btn">Menu</button>
+            <div class="dropdown-content">
+              <a href="preparedness.html">Preparedness</a>
+              <a href="emergency_contacts.html">Emergency Contacts</a>
+              <a href="guides.html">Guides and Tutorials</a>
+              <a href="#" class="logout-btn">Log Out</a>
+            </div>
+          </li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="profile-container">
+    <div class="profile-image-container">
+      <img src="C:\Users\krist\Downloads\E-Response\images\profile1.jpg" alt="Profile Picture" class="profile-image" />
+      <h2 style="color: #c9302c;">User Profile</h2>
+    </div>
+
+    <div id="profile-details">
+      <!-- Info will be injected here -->
+    </div>
+
+    <div class="button-group">
+      <button id="edit-btn" class="edit-btn">Edit</button>
+      <button id="save-btn" class="save-btn" style="display: none;">Save</button>
+      <button id="cancel-btn" class="cancel-btn" style="display: none;">Cancel</button>
+    </div>
+  </main>
+
+  <script>
+    const profileDetails = document.getElementById('profile-details');
+    const editBtn = document.getElementById('edit-btn');
+    const saveBtn = document.getElementById('save-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const buttonGroup = document.querySelector('.button-group');
+
+    const userData = JSON.parse(localStorage.getItem('user_data'));
+
+    if (!userData) {
+      profileDetails.innerHTML = "<p>No user data found. Please register first.</p>";
+    } else {
+      renderProfile(userData);
+      buttonGroup.style.display = "block";
+    }
+
+    function renderProfile(data, editable = false) {
+      profileDetails.innerHTML = `
+        <div class="profile-item">
+          <strong>Username:</strong>
+          ${editable ? `<input type="text" id="username" value="${data.username}" />` : `<span>${data.username}</span>`}
+        </div>
+        <div class="profile-item">
+          <strong>First Name:</strong>
+          ${editable ? `<input type="text" id="first_name" value="${data.first_name}" />` : `<span>${data.first_name}</span>`}
+        </div>
+        <div class="profile-item">
+          <strong>Last Name:</strong>
+          ${editable ? `<input type="text" id="last_name" value="${data.last_name}" />` : `<span>${data.last_name}</span>`}
+        </div>
+        <div class="profile-item">
+          <strong>Age:</strong>
+          ${editable ? `<input type="number" id="age" value="${data.age}" />` : `<span>${data.age}</span>`}
+        </div>
+        <div class="profile-item">
+          <strong>Contact Number:</strong>
+          ${editable ? `<input type="text" id="contact_number" value="${data.contact_number}" />` : `<span>${data.contact_number}</span>`}
+        </div>
+      `;
+    }
+
+    editBtn.addEventListener('click', () => {
+      renderProfile(userData, true);
+      editBtn.style.display = "none";
+      saveBtn.style.display = "inline-block";
+      cancelBtn.style.display = "inline-block";
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const updatedUser = {
+        username: document.getElementById('username').value,
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        age: document.getElementById('age').value,
+        contact_number: document.getElementById('contact_number').value
+      };
+
+      Object.assign(userData, updatedUser);
+
+      localStorage.setItem('user_data', JSON.stringify(userData));
+      renderProfile(userData, false);
+      editBtn.style.display = "inline-block";
+      saveBtn.style.display = "none";
+      cancelBtn.style.display = "none";
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      renderProfile(userData, false);
+      editBtn.style.display = "inline-block";
+      saveBtn.style.display = "none";
+      cancelBtn.style.display = "none";
+    });
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const logoutButton = document.querySelector('.logout-btn');
+
+    // Handle logout
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        // Update login state
+        localStorage.setItem('isLoggedIn', 'false');
+        // Broadcast logout event
+        localStorage.setItem('logout-event', Date.now());
+        // Redirect to login
+        window.location.href = 'login.html';
+      });
+    }
+
+    // Listen for storage events (login/logout across tabs)
+    window.addEventListener('storage', function(event) {
+      if (event.key === 'logout-event') {
+        // Another tab logged out
+        window.location.href = 'login.html';
+      }
+      if (event.key === 'login-event') {
+        // Another tab logged in
+        window.location.reload(); // Reload current tab to reflect login
+      }
+    });
+
+    // Redirect if not logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true' && !window.location.href.includes('login.html')) {
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
+</body>
+</html>
+
+<style>
+    /* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdf2f2;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  background-color: #ffeaea;
+  padding: 15px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #c9302c;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  color: #c9302c;
+  background-color: rgba(201, 48, 44, 0.1);
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dropdown-btn:hover {
+  color: #c9302c;
+  background-color: rgba(201, 48, 44, 0.1);
+}
+
+.dropdown-btn::after {
+  content: '▼';
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+}
+
+.dropdown-content a {
+  color: #444;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+  color: #c9302c;
+}
+
+.dropdown-content .logout-btn {
+  color: #c9302c;
+  font-weight: 500;
+  border-top: 1px solid #eee;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Profile Container */
+.profile-container {
+  background: white;
+  max-width: 550px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Profile Image */
+.profile-image-container {
+  margin-bottom: 25px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #c9302c;
+  margin-bottom: 10px;
+}
+
+/* Profile Items */
+.profile-item {
+  background-color: #ffe5e5; /* Light pink background */
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+}
+
+.profile-item strong {
+  flex: 0 0 150px;
+  color: #c9302c;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.profile-item input {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  outline: none;
+}
+
+/* Buttons */
+.button-group {
+  margin-top: 20px;
+}
+
+.edit-btn,
+.save-btn,
+.cancel-btn {
+  background-color: #c9302c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.edit-btn:hover,
+.save-btn:hover,
+.cancel-btn:hover {
+  background-color: #a82622;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .profile-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-item strong {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .profile-item input {
+    width: 100%;
+  }
+}
+</style>
